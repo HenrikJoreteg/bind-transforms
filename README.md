@@ -15,7 +15,7 @@ npm install bind-transforms
 ```js
 var HumanView = require('human-view');
 var HumanModel = require('human-model');
-var bindTransforms = require('../bind-transforms');
+var bindTransforms = require('bind-transforms');
 
 
 // **note** we're mixing in `bindTransforms` into the
