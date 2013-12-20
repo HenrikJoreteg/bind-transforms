@@ -1,0 +1,36 @@
+{
+  "name": "bind-transforms",
+  "version": "0.0.0",
+  "description": "Bind models properties to properly prefixed CSS transforms in backbone/humanjs views.",
+  "main": "bind-transforms.js",
+  "scripts": {
+    "test": "open test/test.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/HenrikJoreteg/bind-transforms"
+  },
+  "keywords": [
+    "humanjs",
+    "backbone",
+    "views",
+    "binding",
+    "transforms"
+  ],
+  "author": "Henrik Joreteg <henrik@andyet.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HenrikJoreteg/bind-transforms/issues"
+  },
+  "dependencies": {
+    "transform-style": "~0.1.0"
+  },
+  "devDependencies": {
+    "browserify": "2.20.1",
+    "uglify-js": "2.x.x",
+    "backbone": "",
+    "human-view": "",
+    "human-model": "~2.5.0",
+    "underscore": ""
+  }
+}
