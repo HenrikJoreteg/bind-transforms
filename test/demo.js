@@ -1401,7 +1401,6 @@ module.exports = {
 
         // apply styles
         function setStyle() {
-            console.log(getValueString());
             transformStyle(el, getValueString() + (disableTranslateZ ? '' : ' translateZ(0)'));
             if (opacityKey) el.style.opacity = model.get(opacityKey);
         }

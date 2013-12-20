@@ -7,6 +7,10 @@ bundle.add('./test/app.js');
 bundle.bundle(function (err, source) {
     if (err) console.error(err);
     fs.writeFile('./test/demo.js', source, function (err) {
-        if (err) throw err;
+        if (err) {
+            throw err;
+        } else {
+            console.log('Built test/demo.js file');
+        }
     });
 });

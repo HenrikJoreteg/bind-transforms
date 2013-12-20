@@ -2,9 +2,12 @@
 
 Browser module for binding backbone or human-model properties to properly prefixed CSS3 transforms on an element.
 
-It's meant to be used as a mixin for Backbone.View or human-view.
+It's meant to be used as a mixin for Backbone.View or [human-view](http://github.com/henrikjoreteg/human-view).
+
+It's structured for use with browserify and installed with npm.
 
 ## installing
+
 
 ```js
 npm install bind-transforms
@@ -15,7 +18,7 @@ npm install bind-transforms
 ```js
 var HumanView = require('human-view');
 var HumanModel = require('human-model');
-var bindTransforms = require('../bind-transforms');
+var bindTransforms = require('bind-transforms');
 
 
 // **note** we're mixing in `bindTransforms` into the
@@ -29,8 +32,8 @@ var View = HumanView.extend(bindTransforms).extend({
         // anything you list here will become part 
         // of the string used to describe the transform
         this.bindTransforms({
-            translateY: 'translateY',
-            translateX: 'translateX',
+            yPos: 'translateY',
+            xPos: 'translateX',
             scale: 'scale'
         }, this.el);
     }
@@ -39,8 +42,8 @@ var View = HumanView.extend(bindTransforms).extend({
 // this could be backbone model too
 var Model = HumanModel.define({
     props: {
-        translateX: ['number', true, 0],
-        translateY: ['number', true, 0],
+        xPos: ['number', true, 0],
+        yPos: ['number', true, 0],
         scale: ['number', true, 1.0]
     }
 });
