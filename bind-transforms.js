@@ -27,7 +27,7 @@ module.exports = {
         // name our arguments
         var model = args[0];
         var bindings = args[1];
-        var el = args[2];
+        var el = args[2] || this.el;
         var disableTranslateZ = args[3];
 
         // other vars

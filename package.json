@@ -1,6 +1,6 @@
 {
   "name": "bind-transforms",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Bind models properties to properly prefixed CSS transforms in backbone/humanjs views.",
   "main": "bind-transforms.js",
   "scripts": {
