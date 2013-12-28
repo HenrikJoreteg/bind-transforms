@@ -5,6 +5,19 @@ function isModel(model) {
     return typeof model.initialize === 'function';
 }
 
+// Other bindings we want to support similarly even though
+// they're not transforms.
+var nonTransformKeys = [
+    'zIndex',
+    'opacity',
+    'top',
+    'bottom',
+    'left',
+    'right',
+    'width',
+    'backgroundColor'
+];
+
 module.exports = {
     /*
         takes arguments in either of the following arguments:
@@ -31,35 +44,39 @@ module.exports = {
         var disableTranslateZ = args[3];
 
         // other vars
-        var re = /\D/;
+        var re = /^[\d\-]+$/;
+        var cssKeys = [];
         var keys = [];
-        var opacityKey;
+        var opacityKey, zIndexKey;
 
+        // handle special cases
         for (var item in bindings) {
-            if (bindings[item] === 'opacity') {
-                opacityKey = item;
+            if (nonTransformKeys.indexOf(bindings[item]) !== -1) {
+                cssKeys.push(item);
             } else {
                 keys.push(item);
             }
         }
-        var changeString = keys.map(function (key) {
+        var changeString = cssKeys.concat(keys).map(function (key) {
             return 'change:' + bindings[key];
         }).join(' ');
 
         // builds CSS string for transforms
-        function getValueString() {
+        function getTransformString() {
             return keys.map(function (key) {
                 var val = model.get(bindings[key]);
                 // assume px if no non-digits and we're doing transforms
-                if (!re.test(val) && key.indexOf('translate') !== -1) val += 'px';
+                if (re.test(val) && key.indexOf('translate') !== -1) val += 'px';
                 return key + '(' + val + ')';
             }).join(' ');
         }
 
         // apply styles
         function setStyle() {
-            transformStyle(el, getValueString() + (disableTranslateZ ? '' : ' translateZ(0)'));
-            if (opacityKey) el.style.opacity = model.get(opacityKey);
+            transformStyle(el, getTransformString() + (disableTranslateZ ? '' : ' translateZ(0)'));
+            cssKeys.forEach(function (key) {
+                el.style[bindings[key]] = model.get(key);
+            });
         }
 
         // register handler

@@ -32,8 +32,8 @@ var View = HumanView.extend(bindTransforms).extend({
         // anything you list here will become part 
         // of the string used to describe the transform
         this.bindTransforms({
-            yPos: 'translateY',
-            xPos: 'translateX',
+            translateY: 'yPos',
+            translateX: 'xPos',
             scale: 'scale'
         }, this.el);
     }
@@ -51,7 +51,7 @@ var Model = HumanModel.define({
 
 ## why do this?
 
-I wanted to be able to do something like `model.scale = 2` and have it properly applied to a view without also squashing the `translateY` that I may already have set. Since, in CSS each of those (scale and translate) are both set as transforms on the same line, that was challenging. It also requires properly prefixing and then building and setting the full style string an element. By having a model that holds those values in simple formats that I can control (usually just a number). We don't have to worry about re-building that string each time, we can simply make the minimal adjustment to the model's values and the rest of the transforms will still be maintained.
+I wanted to be able to do something like `model.xPos = 2` and have it properly applied to a view without also squashing the `translateY` that I may already have set. Since, in CSS each of those (scale and translate) are both set as transforms on the same line, that was challenging. It also requires properly prefixing and then building and setting the full style string an element. By having a model that holds those values in simple formats that I can control (usually just a number). We don't have to worry about re-building that string each time, we can simply make the minimal adjustment to the model's values and the rest of the transforms will still be maintained.
 
 
 ## more details
@@ -67,10 +67,28 @@ The `bindingObject` is a simple object containing the model properties (as keys)
 The last argument is for disabling automatically applying `translateZ(0)` at the end of the CSS string. We do this by default because it invokes the GPU (you can read more on this here: http://aerotwist.com/blog/on-translate3d-and-layer-creation-hacks/). The assumption being that if you're using transforms you're probably doing so looking for better performance.
 
 
-## a note on binding opacity
+## a note on binding other things
 
 Your binding object *can include bindings to opacity*. Opacity is one of the known properties that is known to be computationally inexpensive to animate, it's not a CSS `transform` property, but this lib handles that as well, allowing you to bind opacity as well, without any extra code.
 
+You can also bind a few other non-transform properties for convenience. Specifically:
+
+```js
+var nonTransformKeys = [
+    'zIndex',
+    'opacity',
+    'top',
+    'bottom',
+    'left',
+    'right',
+    'width',
+    'backgroundColor'
+];
+```
+
+## changelog
+
+ - 1.0.0 - Bugfixes, ability to bind a few animation friendly non-transform properties as well.
 
 ## credits
 
