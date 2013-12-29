@@ -88,6 +88,7 @@ var nonTransformKeys = [
 
 ## changelog
 
+ - 1.0.1 - Fixes bug with non-transform css bindings. Key and value references were inverted.
  - 1.0.0 - Bugfixes, ability to bind a few animation friendly non-transform properties as well.
 
 ## credits

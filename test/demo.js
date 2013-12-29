@@ -1394,12 +1394,13 @@ module.exports = {
 
         // handle special cases
         for (var item in bindings) {
-            if (nonTransformKeys.indexOf(bindings[item]) !== -1) {
+            if (nonTransformKeys.indexOf(item) !== -1) {
                 cssKeys.push(item);
             } else {
                 keys.push(item);
             }
         }
+
         var changeString = cssKeys.concat(keys).map(function (key) {
             return 'change:' + bindings[key];
         }).join(' ');
@@ -1418,7 +1419,7 @@ module.exports = {
         function setStyle() {
             transformStyle(el, getTransformString() + (disableTranslateZ ? '' : ' translateZ(0)'));
             cssKeys.forEach(function (key) {
-                el.style[bindings[key]] = model.get(key);
+                el.style[key] = model.get(bindings[key]);
             });
         }
 
