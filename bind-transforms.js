@@ -81,7 +81,7 @@ module.exports = {
         }
 
         // register handler
-        this.listenTo(this.model, changeString, setStyle);
+        this.listenTo(model, changeString, setStyle);
 
         // run it once immediately
         setStyle();
