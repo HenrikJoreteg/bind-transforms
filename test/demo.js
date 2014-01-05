@@ -1409,7 +1409,7 @@ module.exports = {
         var disableTranslateZ = args[3];
 
         // other vars
-        var re = /^[\d\-]+$/;
+        var re = /^[\d\-\.]+$/;
         var cssKeys = [];
         var keys = [];
         var opacityKey, zIndexKey;
