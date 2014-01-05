@@ -82,12 +82,14 @@ var nonTransformKeys = [
     'left',
     'right',
     'width',
+    'height',
     'backgroundColor'
 ];
 ```
 
 ## changelog
 
+ - 1.1.0 - Properly adds `px` as default unit for non-transform css props if not specified. Adds forgotten `height` property to the list of bindable "regular" properties.
  - 1.0.2 - Fixes bug where it broke if you bind to passed in a model instead of using `this.model`
  - 1.0.1 - Fixes bug with non-transform css bindings. Key and value references were inverted.
  - 1.0.0 - Bugfixes, ability to bind a few animation friendly non-transform properties as well.

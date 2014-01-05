@@ -15,7 +15,29 @@ var nonTransformKeys = [
     'left',
     'right',
     'width',
+    'height',
     'backgroundColor'
+];
+
+var defaultToPixels = [
+    'top',
+    'bottom',
+    'left',
+    'right',
+    'width',
+    'height',
+    'perspective',
+    'translateX',
+    'translateY',
+    'translateZ'
+];
+
+var defaultToDegrees = [
+    'rotateX',
+    'rotateY',
+    'rotateZ',
+    'skewX',
+    'skewY'
 ];
 
 module.exports = {
@@ -62,13 +84,25 @@ module.exports = {
             return 'change:' + bindings[key];
         }).join(' ');
 
+        function addDefaultUnits(val, property) {
+            // if it already has a unit, skip it
+            if (!re.test(val)) return val;
+
+            if (defaultToPixels.indexOf(property) !== -1) {
+                return val + 'px';
+            } else if (defaultToDegrees.indexOf(property) !== -1) {
+                return val + 'deg';
+            } else {
+                return val;
+            }
+        }
+
         // builds CSS string for transforms
         function getTransformString() {
             return keys.map(function (key) {
                 var val = model.get(bindings[key]);
                 // assume px if no non-digits and we're doing transforms
-                if (re.test(val) && key.indexOf('translate') !== -1) val += 'px';
-                return key + '(' + val + ')';
+                return key + '(' + addDefaultUnits(val, key) + ')';
             }).join(' ');
         }
 
@@ -76,7 +110,7 @@ module.exports = {
         function setStyle() {
             transformStyle(el, getTransformString() + (disableTranslateZ ? '' : ' translateZ(0)'));
             cssKeys.forEach(function (key) {
-                el.style[key] = model.get(bindings[key]);
+                el.style[key] = addDefaultUnits(model.get(bindings[key]), key);
             });
         }
 
