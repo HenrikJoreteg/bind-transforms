@@ -4,8 +4,9 @@
   "description": "Bind models properties to properly prefixed CSS transforms in backbone/humanjs views.",
   "main": "bind-transforms.js",
   "scripts": {
-    "test": "open test/test.html",
-    "build": "node build.js"
+    "test": "open ./index.html",
+    "build": "node ./scripts/build.js",
+    "gh-pages": "./scripts/gh-pages.sh"
   },
   "repository": {
     "type": "git",

@@ -6,8 +6,8 @@ It's meant to be used as a mixin for Backbone.View or [human-view](http://github
 
 It's structured for use with browserify and installed with npm.
 
-## installing
 
+## installing
 
 ```js
 npm install bind-transforms
@@ -52,6 +52,13 @@ var Model = HumanModel.define({
 ## why do this?
 
 I wanted to be able to do something like `model.xPos = 2` and have it properly applied to a view without also squashing the `translateY` that I may already have set. Since, in CSS each of those (scale and translate) are both set as transforms on the same line, that was challenging. It also requires properly prefixing and then building and setting the full style string an element. By having a model that holds those values in simple formats that I can control (usually just a number). We don't have to worry about re-building that string each time, we can simply make the minimal adjustment to the model's values and the rest of the transforms will still be maintained.
+
+
+## demo
+
+There's a simple demo page set up here: http://projects.joreteg.com/bind-transforms
+
+It's running the app in the `example` folder.
 
 
 ## more details

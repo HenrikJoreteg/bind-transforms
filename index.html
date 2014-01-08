@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+        <title>bind-transforms demo</title>
+        <script src="example/jquery.js"></script>
+        <script src="example/demo.js"></script>
+        <style>
+            body {
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 14px;
+                padding: 0;
+                margin: 0;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            h1 small {
+                font-size: 18px;
+                font-weight: normal;
+            }
+            main {
+                padding: 20px;
+            }
+            #colorsquare {
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: hsl(198, 100%, 50%);
+                width: 150px;
+                height: 150px;
+                border: 1px solid black;
+            }
+            footer {
+                padding: 20px;
+                position: fixed;
+                bottom: 0px;
+            }
+            footer a {
+                padding-right: 5px;
+            }
+            code, pre {
+                color: #ec008c;
+            }
+            pre {
+                font-size: 14px
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>bind-transforms demo <small>touch or mouse over</small></h1>
+            <p>The square is positioned using <code>translateY</code> and <code>translateX</code> CSS3 transforms bound to a human-model.</p>
+            <p>As you touch or mouse over, the <em>only</em> thing we do is set the model's <code>x</code> and <code>y</code> values:</p>
+            <p><pre>model.set({x: pageX, y: pageY});</pre></p>
+            <p>We use derived properties on the model to describe various styles we'd like bound to the element.</p>
+            <p>This makes it possible to describe highly-performant and intricate UI behaviors with very little code.
+        </main>
+        <footer>
+            <a href="http://github.com/henrikjoreteg/bind-transforms">more info</a>
+            <a href="http://github.com/henrikjoreteg/human-model">human-model</a>
+            <a href="http://twitter.com/henrikjoreteg">@HenrikJoreteg</a>
+        </footer>
+    </body>
+</html>

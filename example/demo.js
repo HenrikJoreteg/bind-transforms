@@ -1,67 +1,50 @@
 ;(function(e,t,n){function i(n,s){if(!t[n]){if(!e[n]){var o=typeof require=="function"&&require;if(!s&&o)return o(n,!0);if(r)return r(n,!0);throw new Error("Cannot find module '"+n+"'")}var u=t[n]={exports:{}};e[n][0].call(u.exports,function(t){var r=e[n][1][t];return i(r?r:t)},u,u.exports)}return t[n].exports}var r=typeof require=="function"&&require;for(var s=0;s<n.length;s++)i(n[s]);return i})({1:[function(require,module,exports){
-var HumanView = require('human-view');
-var HumanModel = require('human-model');
-var bindTransforms = require('../bind-transforms');
 var _ = require('underscore');
+var Model = require('./model');
+var View = require('./view');
 
-
-var View = HumanView.extend(bindTransforms).extend({
-    template: '<div id="hello"></div>',
-    render: function () {
-        this.renderAndBind();
-        this.bindTransforms({
-            translateY: 'translateY',
-            translateX: 'translateX',
-            scale: 'scale',
-            opacity: 'opacity'
-        }, this.el);
-    }
-});
-
-
-var Model = HumanModel.define({
-    props: {
-        translateX: ['number', true, 0],
-        translateY: ['number', true, 0],
-        scale: ['number', true, 1.0],
-        opacity: ['number', true, 1]
-    }
-});
 
 $(function () {
-    var model = window.model = new Model();
+    // This handler just takes touch/mouse position
+    // and set it as x/y on the model.
+
+    // Nothing else is being directly manipulated
+    function setPosition(e) {
+        model.set({
+            x: e.pageX || e.x,
+            y: e.pageY || e.y
+        });
+        // still allow link clicks
+        if (e.target.tagName === 'A' && e.type !== 'mousemove') {
+            window.location = e.target.href;
+        } else {
+            e.preventDefault();
+        }
+    };
+
+    // we use this handler for all the stuff
+    document.onmousemove = setPosition;
+    document.ontouchmove = setPosition;
+    document.ontouchstart = setPosition;
+
+    // create an instance of our model and set our window width/height
+    var model = window.model = new Model({
+        windowWidth: window.innerWidth,
+        windowHeight: window.innerHeight
+    });
+
+    // create/render our view
     var view = new View({
         model: model
     });
     view.render();
 
+    // append view to the dom
     document.body.appendChild(view.el);
-
-    function randomize() {
-        model.set({
-            scale: _.random(1, 2),
-            translateY: _.random(40, 400),
-            translateX: _.random(40, 400),
-            opacity: Math.random()
-        });
-    }
-
-    setInterval(randomize, 1500);
-
-    randomize();
-
-    /*
-    document.onmousemove = function (e) {
-        model.set({
-            translateX: e.x,
-            translateY: e.y
-        });
-    };
-    */
 });
 
 
-},{"../bind-transforms":2,"human-model":4,"human-view":3,"underscore":5}],5:[function(require,module,exports){
+},{"./model":2,"./view":3,"underscore":4}],4:[function(require,module,exports){
 (function(){//     Underscore.js 1.5.2
 //     http://underscorejs.org
 //     (c) 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -1340,7 +1323,24 @@ $(function () {
 }).call(this);
 
 })()
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
+var HumanView = require('human-view');
+var bindTransforms = require('../../bind-transforms');
+
+
+module.exports = HumanView.extend(bindTransforms).extend({
+    template: '<div id="colorsquare"></div>',
+    render: function () {
+        this.renderAndBind();
+        this.bindTransforms({
+            translateY: 'yTotal',
+            translateX: 'xTotal',
+            opacity: 'opacity'
+        }, this.el);
+    }
+});
+
+},{"../../bind-transforms":5,"human-view":6}],5:[function(require,module,exports){
 var transformStyle = require('transform-style');
 
 
@@ -1465,7 +1465,43 @@ module.exports = {
     }
 };
 
-},{"transform-style":6}],6:[function(require,module,exports){
+},{"transform-style":7}],2:[function(require,module,exports){
+var HumanModel = require('human-model');
+
+
+module.exports = HumanModel.define({
+    props: {
+        x: ['number', true, 75],
+        y: ['number', true, 75],
+        windowWidth: 'number',
+        windowHeight: 'number'
+    },
+    derived: {
+        xTotal: {
+            deps: ['x'],
+            fn: function () {
+                return this.x - 75;
+            }
+        },
+        yTotal: {
+            deps: ['y', 'windowHeight'],
+            fn: function () {
+                var y = this.y - 75;
+                var maxHeight = this.windowHeight - 200;
+                return Math.min(y, maxHeight);
+            }
+        },
+        opacity: {
+            deps: ['y'],
+            fn: function () {
+                var calculated = 1 - this.y / this.windowHeight;
+                return Math.max(calculated, 0.2);
+            }
+        }
+    }
+});
+
+},{"human-model":8}],7:[function(require,module,exports){
 // figure out what the right transform name is and cache it
 var style = document.createElement('div').style;
 var res;
@@ -1487,7 +1523,7 @@ module.exports = function (el, style, additive) {
     return el;
 };
 
-},{}],4:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 //   (c) 2013 Henrik Joreteg
 //   MIT Licensed
 //   For all details and documentation:
@@ -2346,7 +2382,7 @@ module.exports = function (el, style, additive) {
 }));
 
 
-},{"backbone":8,"underscore":7}],7:[function(require,module,exports){
+},{"backbone":10,"underscore":9}],9:[function(require,module,exports){
 (function(){//     Underscore.js 1.5.1
 //     http://underscorejs.org
 //     (c) 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -3595,7 +3631,7 @@ module.exports = function (el, style, additive) {
 }).call(this);
 
 })()
-},{}],3:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 (function(){/*global $*/
 (function () {
   "use strict";
@@ -3885,7 +3921,7 @@ module.exports = function (el, style, additive) {
 }());
 
 })()
-},{"backbone":9,"underscore":5}],8:[function(require,module,exports){
+},{"backbone":11,"underscore":4}],10:[function(require,module,exports){
 (function(){//     Backbone.js 1.0.0
 
 //     (c) 2010-2013 Jeremy Ashkenas, DocumentCloud Inc.
@@ -5459,7 +5495,7 @@ module.exports = function (el, style, additive) {
 }).call(this);
 
 })()
-},{"underscore":7}],9:[function(require,module,exports){
+},{"underscore":9}],11:[function(require,module,exports){
 (function(){//     Backbone.js 1.1.0
 
 //     (c) 2010-2011 Jeremy Ashkenas, DocumentCloud Inc.
@@ -7043,5 +7079,5 @@ module.exports = function (el, style, additive) {
 }).call(this);
 
 })()
-},{"underscore":5}]},{},[1])
+},{"underscore":4}]},{},[1])
 ;
