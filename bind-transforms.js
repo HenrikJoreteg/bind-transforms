@@ -8,15 +8,16 @@ function isModel(model) {
 // Other bindings we want to support similarly even though
 // they're not transforms.
 var nonTransformKeys = [
-    'zIndex',
-    'opacity',
-    'top',
+    'backgroundColor',
     'bottom',
-    'left',
-    'right',
-    'width',
+    'color',
     'height',
-    'backgroundColor'
+    'left',
+    'opacity',
+    'right',
+    'top',
+    'width',
+    'zIndex'
 ];
 
 var defaultToPixels = [

@@ -96,11 +96,12 @@ var nonTransformKeys = [
 
 ## changelog
 
- - 1.1.1 - Fix regex to allow "." in tests for whether to assume pixels or degrees.
- - 1.1.0 - Properly adds `px` as default unit for non-transform css props if not specified. Adds forgotten `height` property to the list of bindable "regular" properties.
- - 1.0.2 - Fixes bug where it broke if you bind to passed in a model instead of using `this.model`
- - 1.0.1 - Fixes bug with non-transform css bindings. Key and value references were inverted.
- - 1.0.0 - Bugfixes, ability to bind a few animation friendly non-transform properties as well.
+- 1.2.0 [diff](https://github.com/HenrikJoreteg/bind-transforms/compare/v1.1.1...v1.2.0) - Adding ability to bind `color` too.
+- 1.1.1 [diff](https://github.com/HenrikJoreteg/bind-transforms/compare/v1.1.0...v1.1.1) - Fix regex to allow "." in tests for whether to assume pixels or degrees.
+- 1.1.0 [diff](https://github.com/HenrikJoreteg/bind-transforms/compare/v1.0.2...v1.1.0) - Properly adds `px` as default unit for non-transform css props if not specified. Adds forgotten `height` property to the list of bindable "regular" properties.
+- 1.0.2 [diff](https://github.com/HenrikJoreteg/bind-transforms/compare/v1.0.1...v1.0.2) - Fixes bug where it broke if you bind to passed in a model instead of using `this.model`
+- 1.0.1 [diff](https://github.com/HenrikJoreteg/bind-transforms/compare/v1.0.0...v1.0.1) - Fixes bug with non-transform css bindings. Key and value references were inverted.
+- 1.0.0 - Bugfixes, ability to bind a few animation friendly non-transform properties as well.
 
 ## credits
 
