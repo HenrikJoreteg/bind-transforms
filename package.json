@@ -6,7 +6,8 @@
   "scripts": {
     "test": "open ./index.html",
     "build": "node ./scripts/build.js",
-    "gh-pages": "./scripts/gh-pages.sh"
+    "gh-pages": "./scripts/gh-pages.sh",
+    "start": "open http://localhost:8000/index.html && servedir ."
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "backbone": "",
     "human-view": "",
     "human-model": "~2.5.0",
-    "underscore": ""
+    "underscore": "",
+    "servedir": ""
   }
 }
