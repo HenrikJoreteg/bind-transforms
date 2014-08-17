@@ -1,17 +1,23 @@
 {
   "name": "bind-transforms",
-  "version": "1.2.0",
   "description": "Bind models properties to properly prefixed CSS transforms in backbone/humanjs views.",
-  "main": "bind-transforms.js",
-  "scripts": {
-    "test": "open ./index.html",
-    "build": "node ./scripts/build.js",
-    "gh-pages": "./scripts/gh-pages.sh",
-    "start": "open http://localhost:8000/index.html && servedir ."
+  "version": "1.2.0",
+  "author": "Henrik Joreteg <henrik@andyet.net>",
+  "bugs": {
+    "url": "https://github.com/HenrikJoreteg/bind-transforms/issues"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/HenrikJoreteg/bind-transforms"
+  "dependencies": {
+    "is-function": "^1.0.1",
+    "transform-style": "~0.1.0"
+  },
+  "devDependencies": {
+    "backbone": "",
+    "browserify": "2.20.1",
+    "human-model": "~2.5.0",
+    "human-view": "",
+    "servedir": "",
+    "uglify-js": "2.x.x",
+    "underscore": ""
   },
   "keywords": [
     "humanjs",
@@ -20,21 +26,16 @@
     "binding",
     "transforms"
   ],
-  "author": "Henrik Joreteg <henrik@andyet.net>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/HenrikJoreteg/bind-transforms/issues"
+  "main": "bind-transforms.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/HenrikJoreteg/bind-transforms"
   },
-  "dependencies": {
-    "transform-style": "~0.1.0"
-  },
-  "devDependencies": {
-    "browserify": "2.20.1",
-    "uglify-js": "2.x.x",
-    "backbone": "",
-    "human-view": "",
-    "human-model": "~2.5.0",
-    "underscore": "",
-    "servedir": ""
+  "scripts": {
+    "test": "open ./index.html",
+    "build": "node ./scripts/build.js",
+    "gh-pages": "./scripts/gh-pages.sh",
+    "start": "open http://localhost:8000/index.html && servedir ."
   }
 }

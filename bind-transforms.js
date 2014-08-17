@@ -1,8 +1,9 @@
 var transformStyle = require('transform-style');
+var isFunction = require('is-function');
 
 
 function isModel(model) {
-    return typeof model.initialize === 'function';
+    return model.isState || isFunction(model.initialize);
 }
 
 // Other bindings we want to support similarly even though
